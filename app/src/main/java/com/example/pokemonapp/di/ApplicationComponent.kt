@@ -6,6 +6,7 @@ import com.example.pokemonapp.di.modules.DataBaseModule
 import com.example.pokemonapp.di.modules.DataModule
 import com.example.pokemonapp.di.modules.NetworkModule
 import com.example.pokemonapp.di.modules.ViewModelModule
+import com.example.pokemonapp.ui.generation.GenerationFragment
 import com.example.pokemonapp.ui.home.PokemonFragment
 import com.example.pokemonapp.ui.pokemon.PokemonInfoFragment
 import com.example.pokemonapp.ui.pokemon.evolution.EvolutionFragment
@@ -30,4 +31,5 @@ interface ApplicationComponent {
     fun inject(fragment: PokemonInfoFragment)
     fun inject(fragment: InfoFragment)
     fun inject(fragment: EvolutionFragment)
+    fun inject(fragment: GenerationFragment)
 }
