@@ -1,28 +1,15 @@
 package com.example.pokemonapp.ui.pokemon
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
-import androidx.recyclerview.widget.RecyclerView
-import com.example.pokemonapp.databinding.FragmentPokemonInfoBinding
-import com.example.pokemonapp.databinding.ItemPokemonBinding
-import com.example.pokemonapp.domain.model.Pokemon
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class PokemonInfoAdapter(
-    private val list: List<Pokemon>,
-    private val itemClickListener: (Pokemon, RecyclerView.ViewHolder) -> Unit
-) : RecyclerView.Adapter<PokemonInfoHolder>() {
+    fragment: PokemonInfoFragment,
+    private val list: List<Fragment>
+) : FragmentStateAdapter(fragment) {
+    override fun getItemCount(): Int = list.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonInfoHolder {
-        TODO()
-    }
+    override fun createFragment(position: Int): Fragment = list[position]
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
 
-    override fun onBindViewHolder(holder: PokemonInfoHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
 }
