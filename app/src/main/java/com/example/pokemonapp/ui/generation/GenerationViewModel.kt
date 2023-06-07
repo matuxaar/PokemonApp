@@ -8,8 +8,9 @@ import com.example.pokemonapp.domain.model.Generation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
-class GenerationViewModel: ViewModel() {
+class GenerationViewModel @Inject constructor(): ViewModel() {
 
     private val _listGen = MutableLiveData<List<Generation>>()
     val listGen: LiveData<List<Generation>> get() = _listGen
