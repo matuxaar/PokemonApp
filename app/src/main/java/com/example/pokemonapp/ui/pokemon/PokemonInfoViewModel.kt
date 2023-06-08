@@ -10,10 +10,10 @@ import javax.inject.Inject
 class PokemonInfoViewModel @Inject constructor(private val pokemonDao: PokemonDao) : ViewModel() {
 
     fun getPokemonById(id: String?): LiveData<PokemonEntity> {
-        return pokemonDao.getById(id)
+        return pokemonDao.getById()
     }
 
     fun getPokemonEvolutionsByIds(id: List<String>): LiveData<List<PokemonEntity>> {
-        return pokemonDao.getEvolutionById(id)
+        return pokemonDao.getEvolutionById()
     }
 }

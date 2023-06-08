@@ -13,7 +13,7 @@ class EvolutionAdapter : RecyclerView.Adapter<EvolutionHolder>() {
 
     fun setList(list: List<PokemonEntity>?) {
         this.list.clear()
-        this.list.addAll(list)
+        //this.list.addAll(list)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EvolutionHolder {
         val view = ItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)

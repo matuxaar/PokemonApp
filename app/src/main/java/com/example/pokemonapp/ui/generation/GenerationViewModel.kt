@@ -5,17 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokemonapp.R
 import com.example.pokemonapp.domain.model.Generation
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 class GenerationViewModel @Inject constructor(): ViewModel() {
 
-    private val _listGen = MutableLiveData<List<Generation>>()
+    private var _listGen = MutableLiveData<List<Generation>>()
     val listGen: LiveData<List<Generation>> get() = _listGen
 
-    fun getListGen(): LiveData<List<Generation>> {
+    fun getListGeneration(): LiveData<List<Generation>> {
         _listGen.value = listOf(
             Generation(id = 1, title = R.string.generation_item_1, image = R.drawable.gen1),
             Generation(id = 1, title = R.string.generation_item_2, image = R.drawable.gen2),

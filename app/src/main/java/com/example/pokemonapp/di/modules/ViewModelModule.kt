@@ -20,7 +20,7 @@ interface ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(PokemonInfoViewModel::class)
-    fun bindPokemonViewModel(viewModel: PokemonInfoViewModel): ViewModel
+    fun bindPokemonInfoViewModel(viewModel: PokemonInfoViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -2,8 +2,11 @@ package com.example.pokemonapp.data.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.TypeConverters
+import com.example.pokemonapp.data.database.converters.Converter
 
 @Entity(tableName = "pokemon_table", primaryKeys = ["id", "name"])
+@TypeConverters(Converter::class)
 data class PokemonEntity(
     @ColumnInfo val id: String,
     @ColumnInfo val name: String,

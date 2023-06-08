@@ -2,24 +2,16 @@ package com.example.pokemonapp.ui.generation
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokemonapp.DaggerApp
-import com.example.pokemonapp.R
 import com.example.pokemonapp.databinding.FragmentGenerationBinding
-import com.example.pokemonapp.databinding.FragmentPokemonBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
 import com.example.pokemonapp.domain.model.Generation
-import com.example.pokemonapp.ui.home.PokemonViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 
 class GenerationFragment : BottomSheetDialogFragment() {
@@ -50,7 +42,7 @@ class GenerationFragment : BottomSheetDialogFragment() {
         val layoutManager = GridLayoutManager(context, 2)
         binding.recyclerView?.layoutManager = layoutManager
 
-        viewModel.getListGen().observe(viewLifecycleOwner) {
+        viewModel.getListGeneration().observe(viewLifecycleOwner) {
             val gens: List<Generation> = it
             binding.recyclerView.adapter = GenerationAdapter(gens)
         }
