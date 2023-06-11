@@ -8,11 +8,11 @@ import androidx.room.Query
 interface PokemonDao {
 
     @Query("SELECT * FROM pokemon_table")
-    fun getById(): LiveData<PokemonEntity>
+    fun getById(): List<PokemonEntity>
 
     @Query("SELECT * FROM pokemon_table")
-    fun getEvolutionById(): LiveData<List<PokemonEntity>>
+    fun getEvolutionById(): List<PokemonEntity>
 
     @Query("SELECT * FROM pokemon_table")
-    fun getAll(): LiveData<List<PokemonEntity>>
+    fun getAll(): List<PokemonEntity>
 }

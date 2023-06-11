@@ -1,9 +1,11 @@
 package com.example.pokemonapp.data.models
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.squareup.moshi.Json
 
 data class GenerationResponse(
-    @Json(name = "id") val id: Int? = null,
-    @Json(name = "title") val title: Int? = null,
-    @Json(name = "image") val image: Int? = null
+    val id: Int? = null,
+    @StringRes val title: Int? = null,
+    @DrawableRes val image: Int? = null
 )

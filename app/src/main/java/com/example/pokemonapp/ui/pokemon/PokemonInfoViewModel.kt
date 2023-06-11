@@ -1,19 +1,33 @@
 package com.example.pokemonapp.ui.pokemon
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.pokemonapp.data.database.PokemonDao
-import com.example.pokemonapp.data.database.PokemonEntity
+import androidx.lifecycle.viewModelScope
 import com.example.pokemonapp.domain.model.Pokemon
+import com.example.pokemonapp.domain.repositories.PokemonRepository
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class PokemonInfoViewModel @Inject constructor(private val pokemonDao: PokemonDao) : ViewModel() {
+class PokemonInfoViewModel @Inject constructor(
+    private val pokemonRepository: PokemonRepository
+) : ViewModel() {
 
-    fun getPokemonById(id: String?): LiveData<PokemonEntity> {
-        return pokemonDao.getById()
+    private var _pokemonLiveData = MutableLiveData<Pokemon>()
+    val pokemonLiveData: LiveData<Pokemon> get() = _pokemonLiveData
+
+    private val exceptionHandler =
+        CoroutineExceptionHandler { _, _ ->}
+    suspend fun getPokemonById() {
+        viewModelScope.launch(exceptionHandler) {
+            _pokemonLiveData.value = pokemonRepository.getPokemonById()
+        }
     }
 
-    fun getPokemonEvolutionsByIds(id: List<String>): LiveData<List<PokemonEntity>> {
-        return pokemonDao.getEvolutionById()
+    suspend fun getPokemonEvolutionsByIds() {
+        viewModelScope.launch(exceptionHandler) {
+            _pokemonLiveData.value = pokemonRepository.getPokemonEvolutionsByIds()
+        }
     }
 }

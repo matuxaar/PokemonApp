@@ -32,12 +32,12 @@ class PokemonHolder(
                 textViewType1.isVisible = thirdType != null
             }
 
-            Glide.with(binding.root.context)
+            Glide.with(root.context)
                 .load(item.imageUrl)
                 .into(pokemonImageView)
 
             pokemonImageView.transitionName = item.name
-            binding.root.setOnClickListener{
+            root.setOnClickListener{
                 itemClickListener?.invoke(item, this@PokemonHolder)
             }
         }

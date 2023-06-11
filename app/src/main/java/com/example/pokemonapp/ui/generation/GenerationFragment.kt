@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokemonapp.DaggerApp
 import com.example.pokemonapp.databinding.FragmentGenerationBinding
@@ -17,7 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class GenerationFragment : BottomSheetDialogFragment() {
 
     lateinit var factory: ViewModelFactory
-    private val viewModel: GenerationViewModel by viewModels { factory }
+    private val viewModel: GenerationViewModel by viewModels() //{ factory }
     private var _binding: FragmentGenerationBinding? = null
 
     private val binding get() = _binding!!
@@ -40,12 +41,12 @@ class GenerationFragment : BottomSheetDialogFragment() {
         _binding = FragmentGenerationBinding.bind(view)
 
         val layoutManager = GridLayoutManager(context, 2)
-        binding.recyclerView?.layoutManager = layoutManager
+        binding?.recyclerView?.layoutManager = layoutManager
 
-        viewModel.getListGeneration().observe(viewLifecycleOwner) {
+        viewModel.getListGeneration().observe(viewLifecycleOwner, Observer{
             val gens: List<Generation> = it
             binding.recyclerView.adapter = GenerationAdapter(gens)
-        }
+        })
     }
 
     override fun onDestroyView() {

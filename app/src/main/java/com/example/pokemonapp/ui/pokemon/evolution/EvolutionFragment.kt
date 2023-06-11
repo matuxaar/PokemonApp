@@ -11,6 +11,7 @@ import com.example.pokemonapp.R
 import com.example.pokemonapp.data.database.PokemonEntity
 import com.example.pokemonapp.databinding.FragmentEvolutionBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
+import com.example.pokemonapp.domain.model.Pokemon
 import com.example.pokemonapp.ui.pokemon.PokemonInfoViewModel
 
 class EvolutionFragment : Fragment() {
@@ -40,28 +41,27 @@ class EvolutionFragment : Fragment() {
         val adapter = EvolutionAdapter()
         recyclerView?.adapter = adapter
 
-        viewModel.getPokemonById(id).observe(viewLifecycleOwner) { pokemonValue ->
-            pokemonValue.let { pokemon ->
-                val evolutions = pokemon.evolutions ?: emptyList()
-                viewModel.getPokemonEvolutionsByIds(evolutions)
-                    .observe(viewLifecycleOwner) {
-                        val pokemons: List<PokemonEntity>? = it
-                        adapter.setList(pokemons)
-                        adapter.notifyDataSetChanged()
-
-                        if (pokemons != null) {
-                            if (pokemons.isEmpty()) {
-                                binding.textNonEvolving.visibility = View.VISIBLE
-                            }
-                        }
-                    }
-            }
-        }
+//        viewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemonValue ->
+//            pokemonValue.let { pokemon ->
+//                viewModel.pokemonLiveData
+//                    .observe(viewLifecycleOwner) {
+//                        val pokemons: List<Pokemon>? = it
+//                        adapter.setList(pokemons)
+//                        adapter.notifyDataSetChanged()
+//
+//                        if (pokemons != null) {
+//                            if (pokemons.isEmpty()) {
+//                                binding.textNonEvolving.visibility = View.VISIBLE
+//                            }
+//                        }
+//                    }
+//            }
+//        }
     }
 
     override fun onDestroyView() {
-        _binding = null
         super.onDestroyView()
+        _binding = null
     }
 
     companion object {

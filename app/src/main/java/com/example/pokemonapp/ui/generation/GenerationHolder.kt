@@ -9,7 +9,7 @@ class GenerationHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun onBind(item: Generation) {
         with(binding) {
-            textViewTitle.text = item.title.toString()
+            textViewTitle.text = itemView.context.getString(item.title)
             generationImageView.setImageResource(item.image)
         }
     }

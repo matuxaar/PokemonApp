@@ -33,7 +33,7 @@ class InfoFragment : Fragment() {
 
         _binding = FragmentInfoBinding.bind(view)
 
-        pokemonInfoViewModel.getPokemonById(id).observe(viewLifecycleOwner) { pokemonValue ->
+        pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemonValue ->
             pokemonValue?.let { pokemon ->
                 binding?.apply {
                     textViewHeight.text = pokemon.height

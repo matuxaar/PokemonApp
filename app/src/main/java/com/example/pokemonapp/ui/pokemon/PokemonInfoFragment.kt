@@ -49,7 +49,7 @@ class PokemonInfoFragment : Fragment() {
         _binding = FragmentPokemonInfoBinding.bind(view)
         binding?.imageView?.transitionName = name
 
-        pokemonInfoViewModel.getPokemonById(id).observe(viewLifecycleOwner) { pokemonValue ->
+        pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemonValue ->
             pokemonValue?.let { pokemon ->
                 with(binding) {
                     textViewName.text = pokemon.name
@@ -79,8 +79,8 @@ class PokemonInfoFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        _binding = null
         super.onDestroyView()
+        _binding = null
     }
 
 }
