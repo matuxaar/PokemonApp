@@ -3,7 +3,7 @@
 
 
     <item
-        android:id="@+id/pokemonInfoFragment"
+        android:id="@+id/pokemonFragment"
         android:icon="@drawable/pokemon"
         android:title="Pokedex" />
     <item

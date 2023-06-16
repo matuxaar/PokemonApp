@@ -17,17 +17,20 @@ class PokemonInfoViewModel @Inject constructor(
     private var _pokemonLiveData = MutableLiveData<Pokemon>()
     val pokemonLiveData: LiveData<Pokemon> get() = _pokemonLiveData
 
+    private var _pokemonListLiveData = MutableLiveData<List<Pokemon>>()
+    val pokemonListLiveData: LiveData<List<Pokemon>> get() = _pokemonListLiveData
+
     private val exceptionHandler =
         CoroutineExceptionHandler { _, _ ->}
-    suspend fun getPokemonById() {
+    fun getPokemonById(id: String?) {
         viewModelScope.launch(exceptionHandler) {
-            _pokemonLiveData.value = pokemonRepository.getPokemonById()
+            _pokemonLiveData.value = pokemonRepository.getPokemonById(id)
         }
     }
 
-    suspend fun getPokemonEvolutionsByIds() {
+    fun getPokemonEvolutionsByIds(id: List<String>?) {
         viewModelScope.launch(exceptionHandler) {
-            _pokemonLiveData.value = pokemonRepository.getPokemonEvolutionsByIds()
+            _pokemonListLiveData.value = pokemonRepository.getPokemonEvolutionsByIds(id)
         }
     }
 }

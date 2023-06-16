@@ -2,17 +2,23 @@ package com.example.pokemonapp.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.pokemonapp.domain.model.Pokemon
 
 @Dao
 interface PokemonDao {
 
-    @Query("SELECT * FROM pokemon_table")
-    fun getById(): List<PokemonEntity>
+    @Query("SELECT * FROM pokemon_table WHERE id = :id")
+    suspend fun getById(id: String?): PokemonEntity
+
+    @Query("SELECT * FROM pokemon_table WHERE id IN(:evolutionId)")
+    suspend fun getEvolutionById(evolutionId: List<String>?): List<PokemonEntity>
 
     @Query("SELECT * FROM pokemon_table")
-    fun getEvolutionById(): List<PokemonEntity>
+    suspend fun getAll(): List<PokemonEntity>
 
-    @Query("SELECT * FROM pokemon_table")
-    fun getAll(): List<PokemonEntity>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addPokemons(pokemon: List<PokemonEntity>)
 }

@@ -1,11 +1,10 @@
 package com.example.pokemonapp.data.mappers
 
 import com.example.pokemonapp.data.database.PokemonEntity
-import com.example.pokemonapp.data.models.PokemonResponse
 import com.example.pokemonapp.domain.model.Pokemon
 import javax.inject.Inject
 
-class PokemonResponseMapper @Inject constructor() {
+class PokemonEntityMapper @Inject constructor() {
 
     operator fun invoke(
         pokemonEntity: PokemonEntity
@@ -17,21 +16,20 @@ class PokemonResponseMapper @Inject constructor() {
             attack = attack,
             category = category,
             defense = defense,
-            base_exp = base_exp,
+            baseExp = baseExp,
             evolutions = evolutions,
-            evolvedfrom = evolvedfrom,
+            evolvedFrom = evolvedFrom,
             height = height,
             hp = hp,
             imageUrl = imageUrl,
             reason = reason,
-            special_attack = special_attack,
-            special_defense = special_defense,
+            specialAttack = specialAttack,
+            specialDefense = specialDefense,
             speed = speed,
             total = total,
-            typeofpokemon = typeofpokemon,
+            typeOfPokemon = typeOfPokemon,
             weakness = weakness,
-            weight = weight,
-            ydescription = ydescription
+            weight = weight
         )
     }
 }

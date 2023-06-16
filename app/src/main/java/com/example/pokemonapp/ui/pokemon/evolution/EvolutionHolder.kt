@@ -1,10 +1,13 @@
 package com.example.pokemonapp.ui.pokemon.evolution
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokemonapp.databinding.ItemPokemonBinding
 import com.example.pokemonapp.domain.model.Pokemon
+import com.example.pokemonapp.utils.ColorUtil
 
 class EvolutionHolder(
     val binding: ItemPokemonBinding
@@ -15,17 +18,21 @@ class EvolutionHolder(
             textViewName.text = item.name
             textViewId.text = item.id
 
-            item.typeofpokemon?.getOrNull(0).let { firstType ->
+            val color = ColorUtil(itemView.context).getPokemonColor(item.typeOfPokemon)
+            binding.root.background.colorFilter =
+                PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+
+            item.typeOfPokemon?.getOrNull(0).let { firstType ->
                 textViewType3.text = firstType
                 textViewType3.isVisible = firstType != null
             }
 
-            item.typeofpokemon?.getOrNull(1).let { secondType ->
+            item.typeOfPokemon?.getOrNull(1).let { secondType ->
                 textViewType2.text = secondType
                 textViewType2.isVisible = secondType != null
             }
 
-            item.typeofpokemon?.getOrNull(2).let { thirdType ->
+            item.typeOfPokemon?.getOrNull(2).let { thirdType ->
                 textViewType1.text = thirdType
                 textViewType1.isVisible = thirdType != null
             }

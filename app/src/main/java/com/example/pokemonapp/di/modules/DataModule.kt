@@ -6,10 +6,9 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
 
-/*@Module
+@Module
 interface DataModule {
 
     @Binds
-    @Singleton
     fun getPokemonRepository(impl: PokemonRepositoryImpl): PokemonRepository
-}*/
+}

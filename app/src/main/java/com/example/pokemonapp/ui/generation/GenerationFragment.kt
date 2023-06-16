@@ -13,10 +13,12 @@ import com.example.pokemonapp.databinding.FragmentGenerationBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
 import com.example.pokemonapp.domain.model.Generation
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import javax.inject.Inject
 
 
 class GenerationFragment : BottomSheetDialogFragment() {
 
+    @Inject
     lateinit var factory: ViewModelFactory
     private val viewModel: GenerationViewModel by viewModels() //{ factory }
     private var _binding: FragmentGenerationBinding? = null

@@ -20,8 +20,10 @@
     <color name="lighterGrey">#F4F5F4</color>
     <color name="lightGrey">#F5F5F5</color>
     <color name="lightPurple">#9F5BBA</color>
-    <color name="lightRed">#E4110C</color>
+    <color name="lightRed">#FA6555</color>
     <color name="lightYellow">#FFCE4B</color>
+    <color name="lightTeal">#2CDAB1</color>
+    <color name="lightBlack">#303943</color>
     <color name="purple">#7C538C</color>
     <color name="red">#FA6555</color>
     <color name="teal">#4FC1A6</color>

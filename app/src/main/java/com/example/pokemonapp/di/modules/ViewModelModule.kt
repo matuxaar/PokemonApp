@@ -24,6 +24,6 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(PokemonInfoViewModel::class)
+    @ViewModelKey(GenerationViewModel::class)
     fun bindGenerationViewModel(viewModel: GenerationViewModel): ViewModel
 }

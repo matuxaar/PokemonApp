@@ -1,5 +1,6 @@
 package com.example.pokemonapp.di.modules
 
+import com.example.pokemonapp.data.network.PokemonService
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -36,9 +37,9 @@ class NetworkModule {
             .build()
     }
 
-//    @Provides
-//    @Singleton
-//    fun getService(retrofit: Retrofit): PokeService {
-//        return retrofit.create(PokeService::class.java)
-//    }
+    @Provides
+    @Singleton
+    fun getService(retrofit: Retrofit): PokemonService {
+        return retrofit.create(PokemonService::class.java)
+    }
 }

@@ -3,6 +3,7 @@
     <style name="Theme.PokemonApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/red</item>
     </style>
 
     <style name="Theme.PokemonApp.NoActionBar">
