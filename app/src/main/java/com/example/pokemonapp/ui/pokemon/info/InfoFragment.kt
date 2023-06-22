@@ -1,60 +1,90 @@
 package com.example.pokemonapp.ui.pokemon.info
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
+import com.example.pokemonapp.DaggerApp
 import com.example.pokemonapp.R
+import com.example.pokemonapp.databinding.FragmentInfoBinding
+import com.example.pokemonapp.di.viewmodel.ViewModelFactory
+import com.example.pokemonapp.ui.pokemon.PokemonInfoFragmentArgs
+import com.example.pokemonapp.ui.pokemon.PokemonInfoViewModel
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [InfoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class InfoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class InfoFragment : Fragment(R.layout.fragment_info) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    @Inject
+    lateinit var factory: ViewModelFactory
+    private val pokemonInfoViewModel: PokemonInfoViewModel by viewModels { factory }
+    private var _binding: FragmentInfoBinding? = null
+    private val binding get() = _binding!!
+    private val args: InfoFragmentArgs by navArgs()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().applicationContext as DaggerApp).appComponent.inject(this)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false)
+    ): View {
+        _binding = FragmentInfoBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        pokemonInfoViewModel.getPokemonById(args.id)
+
+        _binding = FragmentInfoBinding.bind(view)
+
+        pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemon ->
+
+            with(binding) {
+                textViewHeight.text = pokemon.height
+                textViewWeight.text = pokemon.weight
+                textViewBaseEXP.text = pokemon.baseExp
+
+                textViewHP.text = pokemon.hp.toString()
+                textViewAttack.text = pokemon.attack.toString()
+                textViewDefense.text = pokemon.defense.toString()
+                textViewSpAtk.text = pokemon.specialAttack.toString()
+                textViewSpDef.text = pokemon.specialDefense.toString()
+                textViewSpeed.text = pokemon.speed.toString()
+                textViewTotal.text = pokemon.total.toString()
+
+                progressBarHp.progress = pokemon.hp ?: 0
+                progressBarAttack.progress = pokemon.hp ?: 0
+                progressBarDefense.progress = pokemon.hp ?: 0
+                progressBarSpAtk.progress = pokemon.hp ?: 0
+                progressBarSpDef.progress = pokemon.hp ?: 0
+                progressBarSpeed.progress = pokemon.hp ?: 0
+                progressBarTotal.progress = pokemon.hp ?: 0
+            }
+
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Inforagment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            InfoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        fun newInstance(id: String) = InfoFragment().apply {
+            arguments = Bundle().apply {
+                putString("id", id)
             }
+        }
     }
 }

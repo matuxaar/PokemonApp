@@ -1,11 +1,18 @@
 package com.example.pokemonapp.domain.repositories
 
 import com.example.pokemonapp.domain.model.Pokemon
-import kotlinx.coroutines.flow.Flow
-import retrofit2.http.GET
 
 interface PokemonRepository {
 
-    @GET("pokemon.json")
-    fun getPoke(): Flow<List<Pokemon>>
+    suspend fun getPoke(): List<Pokemon>
+
+    suspend fun getAll(): List<Pokemon>
+
+    suspend fun getByName(name: String): Pokemon
+
+    suspend fun getPokemonById(id: String): Pokemon
+
+    suspend fun getPokemonEvolutionsByIds(id: List<String>): List<Pokemon>
+
+    suspend fun addPokemons(pokemons: List<Pokemon>)
 }

@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="false"
-            android:background="@drawable/background_item_pokemon"
+            android:background="@drawable/background_toolbar"
             android:backgroundTint="@color/red"
             app:collapsedTitleTextAppearance="@style/AppTheme.Title.Collapsed"
             app:expandedTitleTextAppearance="@style/AppTheme.Title.Expanded"
