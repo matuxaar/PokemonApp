@@ -1,13 +1,16 @@
 package com.example.pokemonapp.data.database
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.example.pokemonapp.data.database.converters.Converter
 
-@Entity(tableName = "pokemon_table", primaryKeys = ["id", "name"])
+@Entity(tableName = "pokemon_table")
 @TypeConverters(Converter::class)
 data class PokemonEntity(
+    @PrimaryKey
     @ColumnInfo val id: String,
     @ColumnInfo val name: String,
     @ColumnInfo val abilities: List<String>,
@@ -26,6 +29,6 @@ data class PokemonEntity(
     @ColumnInfo val speed: Int,
     @ColumnInfo val total: Int,
     @ColumnInfo(name = "type_of_pokemon") val typeOfPokemon: List<String>,
-    @ColumnInfo val weakness: List<String>,
+    @ColumnInfo val weaknesses: List<String>,
     @ColumnInfo val weight: String
 )

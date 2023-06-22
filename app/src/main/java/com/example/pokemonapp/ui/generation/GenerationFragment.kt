@@ -20,7 +20,7 @@ class GenerationFragment : BottomSheetDialogFragment() {
 
     @Inject
     lateinit var factory: ViewModelFactory
-    private val viewModel: GenerationViewModel by viewModels() //{ factory }
+    private val viewModel: GenerationViewModel by viewModels { factory }
     private var _binding: FragmentGenerationBinding? = null
 
     private val binding get() = _binding!!
@@ -33,7 +33,7 @@ class GenerationFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentGenerationBinding.inflate(inflater, container, false)
         return binding.root
     }

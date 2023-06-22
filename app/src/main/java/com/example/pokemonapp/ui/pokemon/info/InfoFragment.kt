@@ -7,21 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.example.pokemonapp.DaggerApp
 import com.example.pokemonapp.R
 import com.example.pokemonapp.databinding.FragmentInfoBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
+import com.example.pokemonapp.ui.pokemon.PokemonInfoFragmentArgs
 import com.example.pokemonapp.ui.pokemon.PokemonInfoViewModel
 import javax.inject.Inject
 
 
-class InfoFragment : Fragment() {
+class InfoFragment : Fragment(R.layout.fragment_info) {
 
     @Inject
     lateinit var factory: ViewModelFactory
     private val pokemonInfoViewModel: PokemonInfoViewModel by viewModels { factory }
     private var _binding: FragmentInfoBinding? = null
     private val binding get() = _binding!!
+    private val args: InfoFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -31,50 +35,53 @@ class InfoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_info, container, false)
+    ): View {
+        _binding = FragmentInfoBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        pokemonInfoViewModel.getPokemonById(args.id)
+
         _binding = FragmentInfoBinding.bind(view)
 
-        pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemonValue ->
-            pokemonValue?.let { pokemon ->
-                binding?.apply {
-                    textViewHeight.text = pokemon.height
-                    textViewWeight.text = pokemon.weight
-                    textViewBaseEXP.text = pokemon.baseExp
+        pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemon ->
 
-                    textViewHP.text = pokemon.hp.toString()
-                    textViewAttack.text = pokemon.attack.toString()
-                    textViewDefense.text = pokemon.defense.toString()
-                    textViewSpAtk.text = pokemon.specialAttack.toString()
-                    textViewSpDef.text = pokemon.specialDefense.toString()
-                    textViewSpeed.text = pokemon.speed.toString()
-                    textViewTotal.text = pokemon.total.toString()
+            with(binding) {
+                textViewHeight.text = pokemon.height
+                textViewWeight.text = pokemon.weight
+                textViewBaseEXP.text = pokemon.baseExp
 
-                    progressBarHp.progress = pokemon.hp ?: 0
-                    progressBarAttack.progress = pokemon.hp ?: 0
-                    progressBarDefense.progress = pokemon.hp ?: 0
-                    progressBarSpAtk.progress = pokemon.hp ?: 0
-                    progressBarSpDef.progress = pokemon.hp ?: 0
-                    progressBarSpeed.progress = pokemon.hp ?: 0
-                    progressBarTotal.progress = pokemon.hp ?: 0
-                }
+                textViewHP.text = pokemon.hp.toString()
+                textViewAttack.text = pokemon.attack.toString()
+                textViewDefense.text = pokemon.defense.toString()
+                textViewSpAtk.text = pokemon.specialAttack.toString()
+                textViewSpDef.text = pokemon.specialDefense.toString()
+                textViewSpeed.text = pokemon.speed.toString()
+                textViewTotal.text = pokemon.total.toString()
+
+                progressBarHp.progress = pokemon.hp ?: 0
+                progressBarAttack.progress = pokemon.hp ?: 0
+                progressBarDefense.progress = pokemon.hp ?: 0
+                progressBarSpAtk.progress = pokemon.hp ?: 0
+                progressBarSpDef.progress = pokemon.hp ?: 0
+                progressBarSpeed.progress = pokemon.hp ?: 0
+                progressBarTotal.progress = pokemon.hp ?: 0
             }
+
         }
     }
 
     override fun onDestroyView() {
-        _binding = null
         super.onDestroyView()
+        _binding = null
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(id: String?) = InfoFragment().apply {
+        fun newInstance(id: String) = InfoFragment().apply {
             arguments = Bundle().apply {
                 putString("id", id)
             }

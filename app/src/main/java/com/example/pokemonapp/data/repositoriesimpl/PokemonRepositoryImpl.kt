@@ -2,6 +2,7 @@ package com.example.pokemonapp.data.repositoriesimpl
 
 import com.example.pokemonapp.data.mappers.PokemonEntityMapper
 import com.example.pokemonapp.data.mappers.PokemonMapper
+import com.example.pokemonapp.data.mappers.PokemonToEntityMapper
 import com.example.pokemonapp.data.network.PokemonService
 import com.example.pokemonapp.data.source.DataBaseSource
 import com.example.pokemonapp.domain.model.Pokemon
@@ -14,6 +15,7 @@ class PokemonRepositoryImpl @Inject constructor(
     private val pokemonEntityMapper: PokemonEntityMapper,
     private val pokemonMapper: PokemonMapper,
     private val dataBaseSource: DataBaseSource,
+    private val pokemonToEntityMapper: PokemonToEntityMapper,
     private val pokemonService: PokemonService
 ) : PokemonRepository {
 
@@ -25,12 +27,20 @@ class PokemonRepositoryImpl @Inject constructor(
         dataBaseSource.getAll().map { pokemonEntityMapper(it) }
     }
 
-    override suspend fun getPokemonById(id: String?): Pokemon = withContext(Dispatchers.IO) {
+    override suspend fun getPokemonById(id: String): Pokemon = withContext(Dispatchers.IO) {
         pokemonEntityMapper(dataBaseSource.getById(id))
     }
 
-    override suspend fun getPokemonEvolutionsByIds(id: List<String>?): List<Pokemon> =
+    override suspend fun getByName(name: String): Pokemon = withContext(Dispatchers.IO) {
+        pokemonEntityMapper(dataBaseSource.getByName(name))
+    }
+
+    override suspend fun getPokemonEvolutionsByIds(id: List<String>): List<Pokemon> =
         withContext(Dispatchers.IO) {
             dataBaseSource.getEvolutionById(id).map { pokemonEntityMapper(it) }
         }
+
+    override suspend fun addPokemons(pokemons: List<Pokemon>) = withContext(Dispatchers.IO) {
+        dataBaseSource.addPokemons(pokemons.map { pokemonToEntityMapper(it) })
+    }
 }

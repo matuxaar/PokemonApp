@@ -27,7 +27,7 @@ class PokemonMapper @Inject constructor() {
             abilities = abilities?.map { it.toString() }?.toList() ?: mutableListOf(),
             evolutions = evolutions?.map { it.toString() }?.toList() ?: mutableListOf(),
             typeOfPokemon = typeOfPokemon?.map { it.toString() }?.toList() ?: mutableListOf(),
-            weakness = weakness?.map { it.toString() }?.toList() ?: mutableListOf()
+            weaknesses = weaknesses?.map { it.toString() }?.toList() ?: mutableListOf()
         )
     }
 }

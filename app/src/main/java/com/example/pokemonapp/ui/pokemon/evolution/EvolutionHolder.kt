@@ -2,6 +2,7 @@ package com.example.pokemonapp.ui.pokemon.evolution
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,6 +18,8 @@ class EvolutionHolder(
         with(binding) {
             textViewName.text = item.name
             textViewId.text = item.id
+
+            setImage(item.imageUrl, pokemonImageView)
 
             val color = ColorUtil(itemView.context).getPokemonColor(item.typeOfPokemon)
             binding.root.background.colorFilter =
@@ -36,10 +39,12 @@ class EvolutionHolder(
                 textViewType1.text = thirdType
                 textViewType1.isVisible = thirdType != null
             }
-
-            Glide.with(binding.root.context)
-                .load(item.imageUrl)
-                .into(pokemonImageView)
         }
+    }
+
+    private fun setImage(url: String, image: ImageView) {
+        Glide.with(image)
+            .load(url)
+            .into(image)
     }
 }

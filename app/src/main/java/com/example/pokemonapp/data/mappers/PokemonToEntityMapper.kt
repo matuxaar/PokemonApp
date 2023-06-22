@@ -4,12 +4,12 @@ import com.example.pokemonapp.data.database.PokemonEntity
 import com.example.pokemonapp.domain.model.Pokemon
 import javax.inject.Inject
 
-class PokemonEntityMapper @Inject constructor() {
+class PokemonToEntityMapper @Inject constructor() {
 
     operator fun invoke(
-        pokemonEntity: PokemonEntity
-    ): Pokemon = with(pokemonEntity) {
-        return Pokemon(
+        pokemon: Pokemon
+    ): PokemonEntity = with(pokemon) {
+        return PokemonEntity(
             id = id,
             name = name,
             abilities = abilities,

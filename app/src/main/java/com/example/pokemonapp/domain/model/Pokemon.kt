@@ -19,6 +19,6 @@ data class Pokemon(
     val speed: Int,
     val total: Int,
     val typeOfPokemon: List<String>,
-    val weakness: List<String>,
+    val weaknesses: List<String>,
     val weight: String
 )

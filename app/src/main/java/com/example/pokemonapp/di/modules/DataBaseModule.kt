@@ -23,8 +23,11 @@ class DataBaseModule {
     }
 
     @Provides
-    fun provideViewModelFactory(creators: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>):
-            ViewModelProvider.Factory = ViewModelFactory(creators)
+    fun provideViewModelFactory(
+        viewModels: MutableMap<Class<out ViewModel>,
+                @JvmSuppressWildcards Provider<ViewModel>>
+    ):
+            ViewModelProvider.Factory = ViewModelFactory(viewModels)
 
     @Provides
     @Singleton

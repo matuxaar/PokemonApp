@@ -11,23 +11,40 @@
         android:label="PokemonFragment" >
         <action
             android:id="@+id/action_pokemonFragment_to_pokemonInfoFragment"
-            app:destination="@id/pokemonInfoFragment" />
+            app:destination="@id/pokemonInfoFragment"
+            app:popUpTo="@id/pokemonFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/pokemonInfoFragment"
         android:name="com.example.pokemonapp.ui.pokemon.PokemonInfoFragment"
         android:label="fragment_pokemon_info"
-        tools:layout="@layout/fragment_pokemon_info" />
+        tools:layout="@layout/fragment_pokemon_info" >
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.example.pokemonapp.ui.pokemon.info.InfoFragment"
         android:label="fragment_info"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_info" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/evolutionFragment"
         android:name="com.example.pokemonapp.ui.pokemon.evolution.EvolutionFragment"
         android:label="fragment_evolution"
-        tools:layout="@layout/fragment_evolution" />
+        tools:layout="@layout/fragment_evolution" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.pokemonapp.ui.search.SearchFragment"

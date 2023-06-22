@@ -33,4 +33,10 @@ class PokemonViewModel @Inject constructor(
         }
     }
 
+    fun addPokemons(pokemons: List<Pokemon>) {
+        viewModelScope.launch(exceptionHandler) {
+            pokemonRepository.addPokemons(pokemons)
+        }
+    }
+
 }

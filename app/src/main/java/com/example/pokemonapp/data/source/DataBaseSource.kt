@@ -8,11 +8,13 @@ class DataBaseSource @Inject constructor(
     private val pokemonDao: PokemonDao
 ) {
 
-    suspend fun getById(id: String?) = pokemonDao.getById(id)
+    suspend fun getById(id: String) = pokemonDao.getById(id)
 
-    suspend fun getEvolutionById(id: List<String>?): List<PokemonEntity> = pokemonDao.getEvolutionById(id)
+    suspend fun getEvolutionById(id: List<String>): List<PokemonEntity> = pokemonDao.getEvolutionById(id)
 
     suspend fun getAll() = pokemonDao.getAll()
+
+    suspend fun getByName(name: String) = pokemonDao.getByName(name)
 
     suspend fun addPokemons(pokemons: List<PokemonEntity>) = pokemonDao.addPokemons(pokemons)
 }

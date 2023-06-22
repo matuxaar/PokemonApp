@@ -31,8 +31,7 @@ class PokemonFragment : Fragment() {
     private var _binding: FragmentPokemonBinding? = null
     private val binding get() = _binding!!
 
-    private var pokemonId: String? = null
-
+    private var pokemonId: String = ""
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().applicationContext as DaggerApp).appComponent.inject(this)
@@ -56,6 +55,7 @@ class PokemonFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
 
         viewModel.pokemonLiveData.observe(viewLifecycleOwner, Observer { pokemons ->
+            viewModel.addPokemons(pokemons)
             binding.recyclerView.adapter = PokemonAdapter(
                 pokemonList = pokemons,
                 itemClickListener = {pokemon ->
@@ -70,7 +70,8 @@ class PokemonFragment : Fragment() {
     }
 
     private fun setClick() {
-        findNavController().navigate(R.id.action_pokemonFragment_to_pokemonInfoFragment)
+        val action = PokemonFragmentDirections.actionPokemonFragmentToPokemonInfoFragment(pokemonId)
+        findNavController().navigate(action)
     }
 
     private fun initViewModel() {

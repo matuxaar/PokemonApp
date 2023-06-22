@@ -15,13 +15,13 @@ data class PokemonResponse(
     @Json(name = "evolvedfrom") val evolvedFrom: String? = null,
     @Json(name = "height") val height: String? = null,
     @Json(name = "hp") val hp: Int? = null,
-    @Json(name = "imageUrl") val imageUrl: String? = null,
+    @Json(name = "imageurl") val imageUrl: String? = null,
     @Json(name = "reason") val reason: String? = null,
     @Json(name = "special_attack") val specialAttack: Int? = null,
     @Json(name = "special_defense") val specialDefense: Int? = null,
     @Json(name = "speed") val speed: Int? = null,
     @Json(name = "total") val total: Int? = null,
     @Json(name = "typeofpokemon") val typeOfPokemon: List<String>? = null,
-    @Json(name = "weakness") val weakness: List<String>? = null,
+    @Json(name = "weaknesses") val weaknesses: List<String>? = null,
     @Json(name = "weight") val weight: String? = null
 )

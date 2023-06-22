@@ -20,22 +20,6 @@ class MainActivity : AppCompatActivity() {
         val bottomNav: BottomNavigationView = binding.bottomNavigation
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         bottomNav.setupWithNavController(navController)
-//        val badge = bottomNav.getOrCreateBadge(R.id.pokemonInfoFragment)
-//        badge.backgroundColor = applicationContext.getColor(R.color.white)
 
-//        navController.addOnDestinationChangedListener {_, destination, _ ->
-//            badge.isVisible = true
-//            when(destination.id) {
-//                R.id.menuSearch -> {
-//                    bottomNav.isVisible = true
-//                }
-//                R.id.menuShowAllGen -> {
-//                    bottomNav.isVisible = true
-//                }
-//                else -> {
-//                    bottomNav.isVisible = true
-//                }
-//            }
-//        }
     }
 }
