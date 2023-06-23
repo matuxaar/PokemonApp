@@ -11,19 +11,14 @@ import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.pokemonapp.DaggerApp
 import com.example.pokemonapp.R
 import com.example.pokemonapp.databinding.FragmentPokemonInfoBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
-import com.example.pokemonapp.ui.home.PokemonFragmentDirections
-import com.example.pokemonapp.ui.pokemon.evolution.EvolutionFragment
-import com.example.pokemonapp.ui.pokemon.info.InfoFragment
+import com.example.pokemonapp.domain.model.Pokemon
 import com.example.pokemonapp.utils.ColorUtil
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import javax.inject.Inject
 
@@ -53,6 +48,17 @@ class PokemonInfoFragment : Fragment(R.layout.fragment_pokemon_info) {
         super.onViewCreated(view, savedInstanceState)
         pokemonInfoViewModel.getPokemonById(args.id)
 
+        setupPager()
+
+        pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemon ->
+            setText(pokemon)
+            setImage(pokemon.imageUrl, binding.imageView)
+            setColor(pokemon, view)
+            setTypes(pokemon)
+        }
+    }
+
+    private fun setupPager() {
         val pager = binding.viewPager
         val tabLayout = binding.tabLayout
         val adapter = PokemonInfoAdapter(this, args.id)
@@ -65,39 +71,50 @@ class PokemonInfoFragment : Fragment(R.layout.fragment_pokemon_info) {
                 else -> getString(R.string.tab_1)
             }
         }.attach()
+    }
 
-        pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemon ->
+    private fun setText(pokemon: Pokemon) {
+        binding.textViewName.text = pokemon.name
+        binding.textViewId.text = pokemon.id
+    }
 
-            with(binding) {
-                textViewName.text = pokemon.name
-                textViewId.text = pokemon.id
+    private fun setColor(pokemon: Pokemon, view: View) {
+        val color = ColorUtil(view.context).getPokemonColor(pokemon.typeOfPokemon)
+        binding.appBar.setBackgroundColor(color)
+        binding.toolbarLayout.contentScrim?.colorFilter =
+            PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
 
-                setImage(pokemon.imageUrl, imageView)
+        activity?.window?.statusBarColor =
+            ColorUtil(view.context).getPokemonColor(pokemon.typeOfPokemon)
+    }
 
-                val color = ColorUtil(view.context).getPokemonColor(pokemon.typeOfPokemon)
-                appBar?.setBackgroundColor(color)
-                toolbarLayout?.contentScrim?.colorFilter =
-                    PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
-
-                    activity?.window?.statusBarColor =
-                        ColorUtil(view.context).getPokemonColor(pokemon.typeOfPokemon)
-
-                pokemon.typeOfPokemon.getOrNull(0).let { firstType ->
-                    textViewType3.text = firstType
-                    textViewType3.isVisible = firstType != null
-                }
-
-                pokemon.typeOfPokemon.getOrNull(1).let { secondType ->
-                    textViewType2.text = secondType
-                    textViewType2.isVisible = secondType != null
-                }
-
-                pokemon.typeOfPokemon.getOrNull(2).let { thirdType ->
-                    textViewType1.text = thirdType
-                    textViewType1.isVisible = thirdType != null
-                }
-            }
+    private fun setFirstType(pokemon: Pokemon) {
+        pokemon.typeOfPokemon.getOrNull(0).let { type ->
+            binding.textViewType1.text = type
+            binding.textViewType1.isVisible = type != null
         }
+    }
+
+    private fun setSecondType(pokemon: Pokemon) {
+
+        pokemon.typeOfPokemon.getOrNull(1).let { type ->
+            binding.textViewType2.text = type
+            binding.textViewType2.isVisible = type != null
+        }
+
+    }
+
+    private fun setThirdType(pokemon: Pokemon) {
+        pokemon.typeOfPokemon.getOrNull(2).let { type ->
+            binding.textViewType3.text = type
+            binding.textViewType3.isVisible = type != null
+        }
+    }
+
+    private fun setTypes(pokemon: Pokemon) {
+        setFirstType(pokemon)
+        setSecondType(pokemon)
+        setThirdType(pokemon)
     }
 
     private fun setImage(url: String, image: ImageView) {

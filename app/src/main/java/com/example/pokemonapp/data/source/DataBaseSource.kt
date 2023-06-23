@@ -14,7 +14,5 @@ class DataBaseSource @Inject constructor(
 
     suspend fun getAll() = pokemonDao.getAll()
 
-    suspend fun getByName(name: String) = pokemonDao.getByName(name)
-
     suspend fun addPokemons(pokemons: List<PokemonEntity>) = pokemonDao.addPokemons(pokemons)
 }

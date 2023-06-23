@@ -18,9 +18,6 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon_table")
     suspend fun getAll(): List<PokemonEntity>
 
-    @Query("SELECT * FROM pokemon_table WHERE name IN(:name)")
-    suspend fun getByName(name: String): PokemonEntity
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addPokemons(pokemon: List<PokemonEntity>)
 }

@@ -1,6 +1,7 @@
 package com.example.pokemonapp.ui.pokemon
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,9 +22,8 @@ class PokemonInfoViewModel @Inject constructor(
     val pokemonListLiveData: LiveData<List<Pokemon>> get() = _pokemonListLiveData
 
 
-
     private val exceptionHandler =
-        CoroutineExceptionHandler { _, _ ->}
+        CoroutineExceptionHandler { _, _ -> }
 
     fun getPokemonById(id: String) {
         viewModelScope.launch(exceptionHandler) {
@@ -31,16 +31,9 @@ class PokemonInfoViewModel @Inject constructor(
         }
     }
 
-
     fun getPokemonEvolutionsByIds(id: List<String>) {
         viewModelScope.launch(exceptionHandler) {
             _pokemonListLiveData.value = pokemonRepository.getPokemonEvolutionsByIds(id)
-        }
-    }
-
-    fun addPokemons(pokemons: List<Pokemon>) {
-        viewModelScope.launch(exceptionHandler) {
-            pokemonRepository.addPokemons(pokemons)
         }
     }
 

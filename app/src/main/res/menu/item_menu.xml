@@ -6,10 +6,7 @@
         android:id="@+id/pokemonFragment"
         android:icon="@drawable/pokemon"
         android:title="Pokedex" />
-    <item
-        android:id="@+id/searchFragment"
-        android:icon="@drawable/search"
-        android:title="Search" />
+
     <item
         android:id="@+id/generationFragment"
         android:icon="@drawable/gen"

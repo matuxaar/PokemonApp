@@ -5,7 +5,6 @@ import com.example.pokemonapp.di.viewmodel.ViewModelKey
 import com.example.pokemonapp.ui.generation.GenerationViewModel
 import com.example.pokemonapp.ui.home.PokemonViewModel
 import com.example.pokemonapp.ui.pokemon.PokemonInfoViewModel
-import com.example.pokemonapp.ui.search.SearchViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -27,9 +26,4 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(GenerationViewModel::class)
     fun bindGenerationViewModel(viewModel: GenerationViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(SearchViewModel::class)
-    fun bingSearchViewModel(viewModel: SearchViewModel): ViewModel
 }

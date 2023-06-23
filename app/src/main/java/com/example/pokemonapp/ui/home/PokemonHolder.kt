@@ -19,38 +19,49 @@ class PokemonHolder(
     fun onBind(item: Pokemon) {
         setType(item)
         setImage(item.imageUrl, binding.pokemonImageView)
-        setUpListeners(item)
+        setupListeners(item)
     }
 
-    private fun setUpListeners(item: Pokemon) {
+    private fun setupListeners(item: Pokemon) {
         itemView.setOnClickListener {
             itemClickListener(item)
         }
     }
 
     private fun setType(item: Pokemon) {
-        with(binding) {
-            textViewName.text = item.name
-            textViewId.text = item.id
+        binding.textViewName.text = item.name
+        binding.textViewId.text = item.id
 
-            val color = ColorUtil(itemView.context).getPokemonColor(item.typeOfPokemon)
-            binding.root.background.colorFilter =
-                PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        setColor(item)
+        setFirstType(item)
+        setSecondType(item)
+        setThirdType(item)
+    }
 
-            item.typeOfPokemon?.getOrNull(0).let { firstType ->
-                textViewType3.text = firstType
-                textViewType3.isVisible = firstType != null
-            }
+    private fun setColor(item: Pokemon) {
+        val color = ColorUtil(itemView.context).getPokemonColor(item.typeOfPokemon)
+        binding.root.background.colorFilter =
+            PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+    }
 
-            item.typeOfPokemon?.getOrNull(1).let { secondType ->
-                textViewType2.text = secondType
-                textViewType2.isVisible = secondType != null
-            }
+    private fun setFirstType(item: Pokemon) {
+        item.typeOfPokemon.getOrNull(0).let { type ->
+            binding.textViewType1.text = type
+            binding.textViewType1.isVisible = type != null
+        }
+    }
 
-            item.typeOfPokemon?.getOrNull(2).let { thirdType ->
-                textViewType1.text = thirdType
-                textViewType1.isVisible = thirdType != null
-            }
+    private fun setSecondType(item: Pokemon) {
+        item.typeOfPokemon.getOrNull(1).let { type ->
+            binding.textViewType2.text = type
+            binding.textViewType2.isVisible = type != null
+        }
+    }
+
+    private fun setThirdType(item: Pokemon) {
+        item.typeOfPokemon.getOrNull(2).let { type ->
+            binding.textViewType3.text = type
+            binding.textViewType3.isVisible = type != null
         }
     }
 

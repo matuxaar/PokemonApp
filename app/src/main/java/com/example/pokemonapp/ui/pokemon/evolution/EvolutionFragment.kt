@@ -7,17 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokemonapp.DaggerApp
 import com.example.pokemonapp.R
-import com.example.pokemonapp.data.database.PokemonEntity
 import com.example.pokemonapp.databinding.FragmentEvolutionBinding
-import com.example.pokemonapp.databinding.FragmentPokemonInfoBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
-import com.example.pokemonapp.domain.model.Pokemon
 import com.example.pokemonapp.ui.pokemon.PokemonInfoViewModel
 import javax.inject.Inject
 
@@ -29,6 +25,9 @@ class EvolutionFragment : Fragment(R.layout.fragment_evolution) {
     private var _binding: FragmentEvolutionBinding? = null
     private val args: EvolutionFragmentArgs by navArgs()
     private val binding get() = _binding!!
+
+    private val adapter = EvolutionAdapter()
+    private val pokemonId = ""
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,33 +44,47 @@ class EvolutionFragment : Fragment(R.layout.fragment_evolution) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getPokemonById(args.id)
 
-        _binding = FragmentEvolutionBinding.bind(view)
+        observeLiveData()
+        setupRecyclerView()
+        setupAdapter()
+    }
 
-        val recyclerView = binding.recyclerViewEvolution
-        val layoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = layoutManager
-        val adapter = EvolutionAdapter()
-        recyclerView.adapter = adapter
+    private fun setupAdapter() {
+        viewModel.pokemonListLiveData.observe(viewLifecycleOwner) { pokemonList ->
+            adapter.setList(pokemonList)
+            adapter.notifyDataSetChanged()
 
-
-        viewModel.pokemonLiveData.observe(viewLifecycleOwner) {
-            it.let {
-                val list = it.evolutions ?: emptyList()
-                viewModel.getPokemonEvolutionsByIds(list)
-                viewModel.pokemonListLiveData.observe(viewLifecycleOwner) {
-                    val pokemons: List<Pokemon> = it
-                    adapter.setList(pokemons)
-                    adapter.notifyDataSetChanged()
-
-                    if (pokemons.isEmpty()) {
-                        binding?.textNonEvolving?.visibility = View.VISIBLE
-                    }
-                }
+            if (pokemonList.isEmpty()) {
+                binding.textNonEvolving.visibility = View.VISIBLE
+            } else {
+                binding.textNonEvolving.visibility = View.GONE
             }
         }
+    }
 
+    private fun observeLiveData() {
+        viewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemon ->
+            pokemon?.let {
+                val evolutions = pokemon.evolutions ?: emptyList()
+                viewModel.getPokemonEvolutionsByIds(evolutions)
+            }
+        }
+        viewModel.getPokemonById(args.id)
+    }
+
+    private fun setupRecyclerView() {
+        binding.recyclerViewEvolution.adapter = adapter
+        binding.recyclerViewEvolution.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+    }
+
+    private fun setClick(): Unit {
+        val action = EvolutionFragmentDirections.actionEvolutionFragmentToPokemonInfoFragment(pokemonId)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

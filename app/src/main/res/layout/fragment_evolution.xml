@@ -8,12 +8,14 @@
 
     <TextView
         android:id="@+id/textNonEvolving"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/non_evolving_pokemon"
         android:textAlignment="center"
         android:textSize="20sp"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewEvolution"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewEvolution"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,8 +23,8 @@
         android:id="@+id/recyclerViewEvolution"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_pokemon"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin" />
+        tools:layout_editor_absoluteX="-83dp"
+        tools:layout_editor_absoluteY="-67dp"
+        tools:listitem="@layout/item_pokemon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

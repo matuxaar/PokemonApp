@@ -27,12 +27,6 @@ class PokemonViewModel @Inject constructor(
         }
     }
 
-    fun getPoke() {
-        viewModelScope.launch(exceptionHandler) {
-            _pokemonLiveData.value = pokemonRepository.getPoke()
-        }
-    }
-
     fun addPokemons(pokemons: List<Pokemon>) {
         viewModelScope.launch(exceptionHandler) {
             pokemonRepository.addPokemons(pokemons)
