@@ -8,8 +8,6 @@ interface PokemonRepository {
 
     suspend fun getAll(): List<Pokemon>
 
-    suspend fun getByName(name: String): Pokemon
-
     suspend fun getPokemonById(id: String): Pokemon
 
     suspend fun getPokemonEvolutionsByIds(id: List<String>): List<Pokemon>

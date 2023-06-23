@@ -79,7 +79,7 @@
                         tools:text="#001" />
 
                     <TextView
-                        android:id="@+id/textViewType1"
+                        android:id="@+id/textViewType3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/textViewType2"
@@ -96,9 +96,9 @@
                         android:id="@+id/textViewType2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/textViewType3"
+                        android:layout_alignBaseline="@+id/textViewType1"
                         android:layout_marginStart="8dp"
-                        android:layout_toEndOf="@+id/textViewType3"
+                        android:layout_toEndOf="@+id/textViewType1"
                         android:background="@drawable/background_item_pokemon_span"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
@@ -107,7 +107,7 @@
                         tools:text="Grass" />
 
                     <TextView
-                        android:id="@+id/textViewType3"
+                        android:id="@+id/textViewType1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"

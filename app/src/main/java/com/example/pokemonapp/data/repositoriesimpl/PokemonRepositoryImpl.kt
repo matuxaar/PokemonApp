@@ -31,10 +31,6 @@ class PokemonRepositoryImpl @Inject constructor(
         pokemonEntityMapper(dataBaseSource.getById(id))
     }
 
-    override suspend fun getByName(name: String): Pokemon = withContext(Dispatchers.IO) {
-        pokemonEntityMapper(dataBaseSource.getByName(name))
-    }
-
     override suspend fun getPokemonEvolutionsByIds(id: List<String>): List<Pokemon> =
         withContext(Dispatchers.IO) {
             dataBaseSource.getEvolutionById(id).map { pokemonEntityMapper(it) }

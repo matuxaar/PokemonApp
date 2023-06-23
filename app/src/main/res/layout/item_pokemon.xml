@@ -47,7 +47,7 @@
         tools:text="#001" />
 
     <TextView
-        android:id="@+id/textViewType1"
+        android:id="@+id/textViewType3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textViewType2"
@@ -57,7 +57,7 @@
         android:background="@drawable/background_item_pokemon_span"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:text="Grass"
+        android:text="@string/grass"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/textViewType2"
@@ -67,21 +67,21 @@
         android:id="@+id/textViewType2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textViewType3"
+        android:layout_above="@+id/textViewType1"
         android:layout_alignParentStart="true"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="6dp"
         android:background="@drawable/background_item_pokemon_span"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:text="Grass"
+        android:text="@string/grass"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewType3"
+        app:layout_constraintBottom_toTopOf="@+id/textViewType1"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textViewType3"
+        android:id="@+id/textViewType1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -91,7 +91,7 @@
         android:background="@drawable/background_item_pokemon_span"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:text="Grass"
+        android:text="@string/grass"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -40,15 +40,21 @@ class GenerationFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentGenerationBinding.bind(view)
 
+        setupRecyclerView()
+        setupAdapter()
+    }
+
+    private fun setupRecyclerView() {
         val layoutManager = GridLayoutManager(context, 2)
-        binding?.recyclerView?.layoutManager = layoutManager
+        binding.recyclerView.layoutManager = layoutManager
+    }
 
-        viewModel.getListGeneration().observe(viewLifecycleOwner, Observer{
+    private fun setupAdapter() {
+        viewModel.getListGeneration().observe(viewLifecycleOwner) {
             val gens: List<Generation> = it
             binding.recyclerView.adapter = GenerationAdapter(gens)
-        })
+        }
     }
 
     override fun onDestroyView() {

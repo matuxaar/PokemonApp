@@ -3,11 +3,10 @@ package com.example.pokemonapp.ui.pokemon.evolution
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pokemonapp.data.database.PokemonEntity
 import com.example.pokemonapp.databinding.ItemPokemonBinding
 import com.example.pokemonapp.domain.model.Pokemon
 
-class EvolutionAdapter() : RecyclerView.Adapter<EvolutionHolder>() {
+class EvolutionAdapter : RecyclerView.Adapter<EvolutionHolder>() {
 
     private var pokemonList: MutableList<Pokemon> = mutableListOf()
 
@@ -15,6 +14,7 @@ class EvolutionAdapter() : RecyclerView.Adapter<EvolutionHolder>() {
         pokemonList.clear()
         pokemonList.addAll(list)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EvolutionHolder {
         val view = ItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return EvolutionHolder(view)

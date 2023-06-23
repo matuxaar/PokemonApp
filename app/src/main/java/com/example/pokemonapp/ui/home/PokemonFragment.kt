@@ -30,8 +30,8 @@ class PokemonFragment : Fragment() {
     private val viewModel: PokemonViewModel by viewModels { factory }
     private var _binding: FragmentPokemonBinding? = null
     private val binding get() = _binding!!
-
     private var pokemonId: String = ""
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().applicationContext as DaggerApp).appComponent.inject(this)
@@ -48,26 +48,30 @@ class PokemonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
+        setupRecyclerView()
+        setupAdapter()
+    }
 
-        _binding = FragmentPokemonBinding.bind(view)
-
+    private fun setupRecyclerView() {
         val layoutManager = GridLayoutManager(context, 2)
         binding.recyclerView.layoutManager = layoutManager
-
-        viewModel.pokemonLiveData.observe(viewLifecycleOwner, Observer { pokemons ->
-            viewModel.addPokemons(pokemons)
-            binding.recyclerView.adapter = PokemonAdapter(
-                pokemonList = pokemons,
-                itemClickListener = {pokemon ->
-                    pokemonId = pokemon.id
-                    setClick()
-                }
-            )
-
-            if (pokemons.isNotEmpty())
-                binding.progressBar.visibility = View.GONE
-        })
     }
+
+    private fun setupAdapter() {
+        viewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemonList ->
+            viewModel.addPokemons(pokemonList)
+            binding.recyclerView.adapter = PokemonAdapter(
+                pokemonList
+            ) { pokemon ->
+                pokemonId = pokemon.id
+                setClick()
+            }
+            if (pokemonList.isNotEmpty()) {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+    }
+
 
     private fun setClick() {
         val action = PokemonFragmentDirections.actionPokemonFragmentToPokemonInfoFragment(pokemonId)
@@ -76,7 +80,6 @@ class PokemonFragment : Fragment() {
 
     private fun initViewModel() {
         viewModel.getPokemonList()
-        viewModel.getPoke()
     }
 
     override fun onDestroyView() {

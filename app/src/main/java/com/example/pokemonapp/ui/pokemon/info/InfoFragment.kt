@@ -45,10 +45,12 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
         pokemonInfoViewModel.getPokemonById(args.id)
 
-        _binding = FragmentInfoBinding.bind(view)
+        setText()
+        setProgressBar()
+    }
 
+    private fun setText() {
         pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemon ->
-
             with(binding) {
                 textViewHeight.text = pokemon.height
                 textViewWeight.text = pokemon.weight
@@ -61,7 +63,13 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 textViewSpDef.text = pokemon.specialDefense.toString()
                 textViewSpeed.text = pokemon.speed.toString()
                 textViewTotal.text = pokemon.total.toString()
+            }
+        }
+    }
 
+    private fun setProgressBar() {
+        pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemon ->
+            with(binding) {
                 progressBarHp.progress = pokemon.hp ?: 0
                 progressBarAttack.progress = pokemon.hp ?: 0
                 progressBarDefense.progress = pokemon.hp ?: 0
@@ -70,7 +78,6 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 progressBarSpeed.progress = pokemon.hp ?: 0
                 progressBarTotal.progress = pokemon.hp ?: 0
             }
-
         }
     }
 
