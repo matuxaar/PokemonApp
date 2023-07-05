@@ -1,6 +1,8 @@
 package com.example.pokemonapp.domain.repositories
 
+import androidx.paging.PagingData
 import com.example.pokemonapp.domain.model.Pokemon
+import kotlinx.coroutines.flow.Flow
 
 interface PokemonRepository {
 
@@ -13,4 +15,6 @@ interface PokemonRepository {
     suspend fun getPokemonEvolutionsByIds(id: List<String>): List<Pokemon>
 
     suspend fun addPokemons(pokemons: List<Pokemon>)
+
+    fun getPagedPokemon(): Flow<PagingData<Pokemon>>
 }
