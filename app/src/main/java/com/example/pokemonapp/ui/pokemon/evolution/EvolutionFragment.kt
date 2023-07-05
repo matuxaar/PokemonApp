@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,9 @@ import com.example.pokemonapp.R
 import com.example.pokemonapp.databinding.FragmentEvolutionBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
 import com.example.pokemonapp.ui.pokemon.PokemonInfoViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class EvolutionFragment : Fragment(R.layout.fragment_evolution) {
@@ -51,25 +55,30 @@ class EvolutionFragment : Fragment(R.layout.fragment_evolution) {
     }
 
     private fun setupAdapter() {
-        viewModel.pokemonListLiveData.observe(viewLifecycleOwner) { pokemonList ->
-            adapter.setList(pokemonList)
-            adapter.notifyDataSetChanged()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.pokemonListStateFlow.collectLatest { pokemonList ->
+                adapter.setList(pokemonList)
+                adapter.notifyDataSetChanged()
 
-            if (pokemonList.isEmpty()) {
-                binding.textNonEvolving.visibility = View.VISIBLE
-            } else {
-                binding.textNonEvolving.visibility = View.GONE
+                if (pokemonList.isEmpty()) {
+                    binding.textNonEvolving.visibility = View.VISIBLE
+                } else {
+                    binding.textNonEvolving.visibility = View.GONE
+                }
             }
         }
     }
 
     private fun observeLiveData() {
-        viewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemon ->
-            pokemon?.let {
-                val evolutions = pokemon.evolutions ?: emptyList()
-                viewModel.getPokemonEvolutionsByIds(evolutions)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.pokemonSharedFlow.collect { pokemon ->
+                pokemon?.let {
+                    val evolutions = pokemon.evolutions ?: emptyList()
+                    viewModel.getPokemonEvolutionsByIds(evolutions)
+                }
             }
         }
+
         viewModel.getPokemonById(args.id)
     }
 

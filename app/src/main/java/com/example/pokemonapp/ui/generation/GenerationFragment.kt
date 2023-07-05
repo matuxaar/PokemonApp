@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokemonapp.DaggerApp
 import com.example.pokemonapp.databinding.FragmentGenerationBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
 import com.example.pokemonapp.domain.model.Generation
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -51,9 +54,11 @@ class GenerationFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupAdapter() {
-        viewModel.getListGeneration().observe(viewLifecycleOwner) {
-            val gens: List<Generation> = it
-            binding.recyclerView.adapter = GenerationAdapter(gens)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getListGeneration().collectLatest {
+                val gens: List<Generation> = it
+                binding.recyclerView.adapter = GenerationAdapter(gens)
+            }
         }
     }
 

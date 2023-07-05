@@ -1,10 +1,12 @@
 package com.example.pokemonapp.data.database
 
-import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokemonDao {
@@ -18,6 +20,10 @@ interface PokemonDao {
     @Query("SELECT * FROM pokemon_table")
     suspend fun getAll(): List<PokemonEntity>
 
+    @Query("SELECT * FROM pokemon_table ORDER BY id ASC LIMIT :limit OFFSET :offset")
+    fun getPagedPokes(limit: Int, offset: Int): List<PokemonEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addPokemons(pokemon: List<PokemonEntity>)
+
 }

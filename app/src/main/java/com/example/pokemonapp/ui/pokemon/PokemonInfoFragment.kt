@@ -11,6 +11,7 @@ import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.pokemonapp.DaggerApp
@@ -20,6 +21,7 @@ import com.example.pokemonapp.di.viewmodel.ViewModelFactory
 import com.example.pokemonapp.domain.model.Pokemon
 import com.example.pokemonapp.utils.ColorUtil
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PokemonInfoFragment : Fragment(R.layout.fragment_pokemon_info) {
@@ -50,11 +52,13 @@ class PokemonInfoFragment : Fragment(R.layout.fragment_pokemon_info) {
 
         setupPager()
 
-        pokemonInfoViewModel.pokemonLiveData.observe(viewLifecycleOwner) { pokemon ->
-            setText(pokemon)
-            setImage(pokemon.imageUrl, binding.imageView)
-            setColor(pokemon, view)
-            setTypes(pokemon)
+        viewLifecycleOwner.lifecycleScope.launch {
+            pokemonInfoViewModel.pokemonSharedFlow.collect { pokemon ->
+                setText(pokemon)
+                setImage(pokemon.imageUrl, binding.imageView)
+                setColor(pokemon, view)
+                setTypes(pokemon)
+            }
         }
     }
 
