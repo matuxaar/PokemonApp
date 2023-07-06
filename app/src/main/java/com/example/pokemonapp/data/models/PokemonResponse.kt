@@ -1,6 +1,5 @@
 package com.example.pokemonapp.data.models
 
-import com.example.pokemonapp.domain.model.Pokemon
 import com.squareup.moshi.Json
 
 data class PokemonResponse(

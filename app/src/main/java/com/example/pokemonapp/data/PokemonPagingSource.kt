@@ -2,8 +2,6 @@ package com.example.pokemonapp.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.pokemonapp.data.database.PokemonDao
-import com.example.pokemonapp.data.mappers.PokemonEntityMapper
 import com.example.pokemonapp.domain.model.Pokemon
 
 typealias PokemonPagerLoader = suspend (pageIndex: Int, pageSize: Int) -> List<Pokemon>

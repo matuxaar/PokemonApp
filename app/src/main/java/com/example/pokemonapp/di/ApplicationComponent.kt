@@ -1,6 +1,5 @@
 package com.example.pokemonapp.di
 
-//import com.example.pokemonapp.di.modules.DataModule
 import android.content.Context
 import com.example.pokemonapp.MainActivity
 import com.example.pokemonapp.di.modules.DataBaseModule

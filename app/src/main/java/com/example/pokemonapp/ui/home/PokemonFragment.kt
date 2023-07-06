@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.pokemonapp.DaggerApp
 import com.example.pokemonapp.databinding.FragmentPokemonBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,7 +45,7 @@ class PokemonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //initViewModel()
+
         addPokemons()
         setupRecyclerView()
     }
@@ -79,7 +77,7 @@ class PokemonFragment : Fragment() {
 
     private fun observePokemons(pokemonAdapter: PokemonAdapter) {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.pokemonFlow.collectLatest{ pokemonData ->
+            viewModel.pokemonFlow.collectLatest { pokemonData ->
                 pokemonAdapter.submitData(pokemonData)
             }
         }
@@ -90,10 +88,6 @@ class PokemonFragment : Fragment() {
         val action = PokemonFragmentDirections.actionPokemonFragmentToPokemonInfoFragment(pokemonId)
         findNavController().navigate(action)
     }
-
-//    private fun initViewModel() {
-//        viewModel.getPokemonList()
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

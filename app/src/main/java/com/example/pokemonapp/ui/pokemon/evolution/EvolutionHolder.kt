@@ -2,7 +2,6 @@ package com.example.pokemonapp.ui.pokemon.evolution
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
