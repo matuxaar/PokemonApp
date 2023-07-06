@@ -1,11 +1,9 @@
 package com.example.pokemonapp.ui.pokemon
 
-import androidx.collection.ArrayMap
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.pokemonapp.ui.pokemon.evolution.EvolutionFragment
 import com.example.pokemonapp.ui.pokemon.info.InfoFragment
-import java.lang.IllegalStateException
 
 class PokemonInfoAdapter(
     fragment: PokemonInfoFragment,

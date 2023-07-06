@@ -1,7 +1,5 @@
 package com.example.pokemonapp.ui.generation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokemonapp.R
 import com.example.pokemonapp.domain.model.Generation

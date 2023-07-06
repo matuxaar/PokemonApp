@@ -1,6 +1,5 @@
 package com.example.pokemonapp.data.source
 
-import androidx.paging.PagingSource
 import com.example.pokemonapp.data.database.PokemonDao
 import com.example.pokemonapp.data.database.PokemonEntity
 import javax.inject.Inject

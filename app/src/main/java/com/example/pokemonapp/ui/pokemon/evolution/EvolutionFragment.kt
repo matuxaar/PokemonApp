@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokemonapp.DaggerApp
@@ -16,7 +15,6 @@ import com.example.pokemonapp.R
 import com.example.pokemonapp.databinding.FragmentEvolutionBinding
 import com.example.pokemonapp.di.viewmodel.ViewModelFactory
 import com.example.pokemonapp.ui.pokemon.PokemonInfoViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -89,11 +87,6 @@ class EvolutionFragment : Fragment(R.layout.fragment_evolution) {
             LinearLayoutManager.VERTICAL,
             false
         )
-    }
-
-    private fun setClick(): Unit {
-        val action = EvolutionFragmentDirections.actionEvolutionFragmentToPokemonInfoFragment(pokemonId)
-        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {
